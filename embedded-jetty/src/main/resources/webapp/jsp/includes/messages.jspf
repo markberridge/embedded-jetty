@@ -1,0 +1,12 @@
+<%@ taglib uri="/struts-tags" prefix="s"%>
+<s:if test="hasErrors()">
+	<div id="errors">
+		<s:actionerror />
+		<s:fielderror />
+	</div>
+</s:if>
+<s:if test="hasActionMessages()">
+	<div id="messages">
+		<s:actionmessage />
+	</div>
+</s:if>

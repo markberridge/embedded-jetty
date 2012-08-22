@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+    xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+    expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.markberridge.co.uk/">
+
+    <process id="twitterProcess" name="Twitter Process">
+        <startEvent id="startEvent" name="Start" activiti:formKey="newTweet"></startEvent>
+        <exclusiveGateway id="exclusiveGateway1" name="Exclusive Gateway"></exclusiveGateway>
+        <userTask id="reviewTweetUserTask" name="Review Tweet" activiti:assignee="kermit" activiti:formKey="reviewTweet"></userTask>
+        <exclusiveGateway id="exclusiveGateway2" name="Exclusive Gateway"></exclusiveGateway>
+        <serviceTask id="publishTweetServiceTask" name="Publish Tweet" activiti:expression="#{printer.printMessage('TODO')}"></serviceTask>
+        <userTask id="changeTweetUserTask" name="Change Tweet"></userTask>
+        <endEvent id="endEvent" name="End"></endEvent>
+        <sequenceFlow id="flow1" name="" sourceRef="startEvent" targetRef="exclusiveGateway1"></sequenceFlow>
+        <sequenceFlow id="flow2" name="" sourceRef="exclusiveGateway1" targetRef="reviewTweetUserTask"></sequenceFlow>
+        <sequenceFlow id="flow3" name="" sourceRef="reviewTweetUserTask" targetRef="exclusiveGateway2"></sequenceFlow>
+        <sequenceFlow id="flow4" name="" sourceRef="exclusiveGateway2" targetRef="publishTweetServiceTask"></sequenceFlow>
+        <sequenceFlow id="flow5" name="" sourceRef="exclusiveGateway2" targetRef="changeTweetUserTask"></sequenceFlow>
+        <sequenceFlow id="flow6" name="" sourceRef="changeTweetUserTask" targetRef="exclusiveGateway1"></sequenceFlow>
+        <sequenceFlow id="flow7" name="" sourceRef="publishTweetServiceTask" targetRef="endEvent"></sequenceFlow>
+    </process>
+
+    <bpmndi:BPMNDiagram id="BPMNDiagram_twitterProcess">
+        <bpmndi:BPMNPlane bpmnElement="twitterProcess" id="BPMNPlane_twitterProcess">
+            <bpmndi:BPMNShape bpmnElement="startEvent" id="BPMNShape_startEvent">
+                <omgdc:Bounds height="35" width="35" x="20" y="90"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="exclusiveGateway1" id="BPMNShape_exclusiveGateway1">
+                <omgdc:Bounds height="40" width="40" x="110" y="87"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="reviewTweetUserTask" id="BPMNShape_reviewTweetUserTask">
+                <omgdc:Bounds height="55" width="105" x="200" y="80"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="exclusiveGateway2" id="BPMNShape_exclusiveGateway2">
+                <omgdc:Bounds height="40" width="40" x="360" y="87"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="publishTweetServiceTask" id="BPMNShape_publishTweetServiceTask">
+                <omgdc:Bounds height="55" width="105" x="460" y="20"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="changeTweetUserTask" id="BPMNShape_changeTweetUserTask">
+                <omgdc:Bounds height="55" width="105" x="460" y="140"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+                <omgdc:Bounds height="35" width="35" x="630" y="30"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+                <omgdi:waypoint x="55" y="107"></omgdi:waypoint>
+                <omgdi:waypoint x="110" y="107"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+                <omgdi:waypoint x="150" y="107"></omgdi:waypoint>
+                <omgdi:waypoint x="200" y="107"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+                <omgdi:waypoint x="305" y="107"></omgdi:waypoint>
+                <omgdi:waypoint x="360" y="107"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+                <omgdi:waypoint x="380" y="87"></omgdi:waypoint>
+                <omgdi:waypoint x="380" y="47"></omgdi:waypoint>
+                <omgdi:waypoint x="460" y="47"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+                <omgdi:waypoint x="380" y="127"></omgdi:waypoint>
+                <omgdi:waypoint x="380" y="167"></omgdi:waypoint>
+                <omgdi:waypoint x="460" y="167"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+                <omgdi:waypoint x="565" y="167"></omgdi:waypoint>
+                <omgdi:waypoint x="605" y="167"></omgdi:waypoint>
+                <omgdi:waypoint x="605" y="229"></omgdi:waypoint>
+                <omgdi:waypoint x="130" y="229"></omgdi:waypoint>
+                <omgdi:waypoint x="130" y="127"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+                <omgdi:waypoint x="565" y="47"></omgdi:waypoint>
+                <omgdi:waypoint x="630" y="47"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+
+</definitions>

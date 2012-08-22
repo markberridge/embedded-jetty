@@ -1,0 +1,58 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="struts2-jetty" extends="struts-default">
+
+        <interceptors>
+            <interceptor name="redirectMessage" class="uk.co.markberridge.struts.RedirectMessageInterceptor" />
+            <interceptor-stack name="interceptorStack">
+                <interceptor-ref name="redirectMessage" />
+                <interceptor-ref name="paramsPrepareParamsStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="interceptorStack" />
+
+        <action name="home" class="uk.co.markberridge.struts.HomeAction">
+            <result>/jsp/Home.jsp</result>
+        </action>
+
+        <action name="throwException" class="uk.co.markberridge.struts.ThrowExceptionAction" />
+
+        <action name="service" class="uk.co.markberridge.struts.ServiceAction">
+            <result>/jsp/Service.jsp</result>
+        </action>
+
+        <action name="findProcess" class="uk.co.markberridge.struts.FindProcessAction">
+            <result name="input">/jsp/FindProcess.jsp</result>
+            <result name="list">/jsp/ProcessList.jsp</result>
+            <!-- <result name="success" type="redirectAction"> -->
+            <!-- <param name="actionName">processDetails</param> -->
+            <!-- <param name="method">input</param> -->
+            <!-- <param name="processId">${processId}</param> -->
+            <!-- </result> -->
+        </action>
+
+        <action name="newTweet" class="uk.co.markberridge.struts.NewTweetAction">
+            <result name="input">/jsp/NewTweet.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">findProcess</param>
+            </result>
+        </action>
+
+        <action name="findTask" class="uk.co.markberridge.struts.FindTaskAction">
+            <result name="input">/jsp/FindTask.jsp</result>
+            <result name="list">/jsp/TaskList.jsp</result>
+        </action>
+
+        <action name="reviewTweet" class="uk.co.markberridge.struts.ReviewTweetAction">
+            <result name="input">/jsp/ReviewTweet.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">findTask</param>
+            </result>
+        </action>
+
+    </package>
+
+</struts>

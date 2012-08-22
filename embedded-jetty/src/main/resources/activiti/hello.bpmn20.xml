@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://www.bpmnwithactiviti.org"
+    xmlns:activiti="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/BPMN/20100524/DI"
+    xmlns:di_1="http://www.omg.org/spec/DD/20100524/DI">
+
+    <process id="helloProcess" name="Hello Process">
+        <startEvent id="start" />
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="printService" />
+        <serviceTask id="printService" name="Print Service" activiti:expression="#{printer.printMessage()}" />
+        <sequenceFlow id="flow2" sourceRef="printService" targetRef="printScript" />
+        <scriptTask id="printScript" name="Print Script" scriptFormat="groovy">
+            <script>
+            <![CDATA[
+                println "Hello World! (script)"
+            ]]>
+            </script>
+        </scriptTask>
+        <sequenceFlow id="flow3" sourceRef="printScript" targetRef="end" />
+        <endEvent id="end" />
+    </process>
+
+    <di:BPMNDiagram name="helloProcessDiagram">
+        <di:BPMNPlane id="plane_hello" bpmnElement="helloProcess">
+            <di:BPMNShape id="_OHpp8NusEeG4tu7FUhhW8Q" bpmnElement="start">
+                <dc:Bounds height="34.0" width="30.0" x="90.0" y="110.0" />
+            </di:BPMNShape>
+            <di:BPMNShape id="_OM9nwNusEeG4tu7FUhhW8Q" bpmnElement="printService">
+                <dc:Bounds height="50.0" width="100.0" x="240.0" y="110.0" />
+            </di:BPMNShape>
+            <di:BPMNShape id="_OQO-MNusEeG4tu7FUhhW8Q" bpmnElement="printScript">
+                <dc:Bounds height="50.0" width="100.0" x="390.0" y="110.0" />
+            </di:BPMNShape>
+            <di:BPMNShape id="_OVyMkNusEeG4tu7FUhhW8Q" bpmnElement="end">
+                <dc:Bounds height="34.0" width="30.0" x="540.0" y="110.0" />
+            </di:BPMNShape>
+            <di:BPMNEdge id="_OWO4gNusEeG4tu7FUhhW8Q" bpmnElement="flow1">
+                <di_1:waypoint x="120.0" y="131.0" />
+                <di_1:waypoint x="240.0" y="131.0" />
+            </di:BPMNEdge>
+            <di:BPMNEdge id="_OazPcNusEeG4tu7FUhhW8Q" bpmnElement="flow2">
+                <di_1:waypoint x="340.0" y="135.0" />
+                <di_1:waypoint x="390.0" y="135.0" />
+            </di:BPMNEdge>
+            <di:BPMNEdge id="_OcXVsNusEeG4tu7FUhhW8Q" bpmnElement="flow3">
+                <di_1:waypoint x="490.0" y="131.0" />
+                <di_1:waypoint x="540.0" y="131.0" />
+            </di:BPMNEdge>
+        </di:BPMNPlane>
+    </di:BPMNDiagram>
+
+</definitions>
