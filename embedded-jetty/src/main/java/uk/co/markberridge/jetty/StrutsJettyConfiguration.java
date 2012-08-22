@@ -70,6 +70,7 @@ public class StrutsJettyConfiguration {
         webAppContext.setServletHandler(strutsServletHandler());
         webAppContext.setErrorHandler(errorHandler());
         webAppContext.setWelcomeFiles(new String[] { "index.jsp" });
+        
         // create a ServletContextListerner which will create the WebApplicationContext
         webAppContext.addEventListener(springContextListener());
         webAppContext.setInitParameter("contextClass", AnnotationConfigWebApplicationContext.class.getName());
