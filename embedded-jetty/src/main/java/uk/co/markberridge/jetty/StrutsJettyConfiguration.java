@@ -1,8 +1,10 @@
 package uk.co.markberridge.jetty;
 
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.EventListener;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.ServletException;
 
 import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
@@ -24,10 +26,13 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 import uk.co.markberridge.spring.ContextAwareContextLoaderListener;
 
+import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
+
 @Configuration
 public class StrutsJettyConfiguration {
 
     private static final String STRUTS2 = "struts2";
+    private static final String SITEMESH = "sitemesh";
 
     @Value("${jetty.port:8080}")
     private Integer port;
@@ -70,7 +75,7 @@ public class StrutsJettyConfiguration {
         webAppContext.setServletHandler(strutsServletHandler());
         webAppContext.setErrorHandler(errorHandler());
         webAppContext.setWelcomeFiles(new String[] { "index.jsp" });
-        
+
         // create a ServletContextListerner which will create the WebApplicationContext
         webAppContext.addEventListener(springContextListener());
         webAppContext.setInitParameter("contextClass", AnnotationConfigWebApplicationContext.class.getName());
@@ -81,6 +86,7 @@ public class StrutsJettyConfiguration {
     public ServletHandler strutsServletHandler() {
         ServletHandler servletHandler = new ServletHandler();
         servletHandler.addFilter(strutsFilterHolder(), strutsFilterMapping());
+        servletHandler.addFilter(sitemeshFilterHolder(), sitemeshFilterMapping());
         return servletHandler;
     }
 
@@ -97,6 +103,22 @@ public class StrutsJettyConfiguration {
         FilterMapping filterMapping = new FilterMapping();
         filterMapping.setPathSpec("*.action");
         filterMapping.setFilterName(STRUTS2);
+        return filterMapping;
+    }
+
+    @Bean
+    public FilterHolder sitemeshFilterHolder() {
+        FilterHolder filterHolder = new FilterHolder(SiteMeshFilter.class);
+        filterHolder.setName(SITEMESH);
+        return filterHolder;
+    }
+
+    @Bean
+    public FilterMapping sitemeshFilterMapping() {
+        FilterMapping filterMapping = new FilterMapping();
+        filterMapping.setPathSpec("/*");
+        filterMapping.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
+        filterMapping.setFilterName(SITEMESH);
         return filterMapping;
     }
 

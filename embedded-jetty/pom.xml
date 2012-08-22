@@ -122,6 +122,14 @@
         </dependency>
         <!-- Struts End -->
 
+        <!-- Sitemesh Start -->
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <!-- Sitemesh End -->
+
         <!-- Activiti Start -->
         <dependency>
             <groupId>org.activiti</groupId>

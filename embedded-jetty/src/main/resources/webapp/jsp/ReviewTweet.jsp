@@ -1,8 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <html>
-<head>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-</head>
+<head></head>
 <body>
   <h1>Review Tweet</h1>
   <s:form>
