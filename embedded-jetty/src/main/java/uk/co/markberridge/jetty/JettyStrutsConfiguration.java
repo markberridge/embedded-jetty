@@ -1,13 +1,16 @@
 package uk.co.markberridge.jetty;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.util.EnumSet;
 import java.util.EventListener;
 
+import javax.management.MBeanServer;
 import javax.servlet.DispatcherType;
 import javax.servlet.ServletException;
 
 import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
+import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -29,7 +32,7 @@ import uk.co.markberridge.spring.ContextAwareContextLoaderListener;
 import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
 
 @Configuration
-public class StrutsJettyConfiguration {
+public class JettyStrutsConfiguration {
 
     private static final String STRUTS2 = "struts2";
     private static final String SITEMESH = "sitemesh";
@@ -37,7 +40,7 @@ public class StrutsJettyConfiguration {
     @Value("${jetty.port:8080}")
     private Integer port;
 
-    @Value("${jetty.host:127.0.0.1}")
+    @Value("${jetty.host:localhost}")
     private String host;
 
     @Value("${jetty.context:/}")
@@ -52,9 +55,17 @@ public class StrutsJettyConfiguration {
         Server server = new Server();
         server.setConnectors(new Connector[] { httpConnector() });
         server.setHandler(webAppContext());
+        server.getContainer().addEventListener(mbeanContainer());
         server.setStopAtShutdown(true);
         server.setGracefulShutdown(1000);
         return server;
+    }
+
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public MBeanContainer mbeanContainer() throws Exception {
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        MBeanContainer mBeanContainer = new MBeanContainer(mBeanServer);
+        return mBeanContainer;
     }
 
     @Bean

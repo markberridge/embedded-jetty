@@ -13,19 +13,13 @@ import org.springframework.stereotype.Component;
 
 import uk.co.markberridge.activiti.ActivitiConfiguration;
 import uk.co.markberridge.activiti.ProcessInitiator;
-import uk.co.markberridge.jetty.StrutsJettyConfiguration;
+import uk.co.markberridge.jetty.JettyStrutsConfiguration;
 import uk.co.markberridge.service.ActivitiService;
 import uk.co.markberridge.service.MyService;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 @Component
 public class App {
-
-    static {
-        // Activiti image generation crashes the JVM. Run with JVM parameter -Dsun.java2d.d3d=false to workaround JVM
-        // bug see {@link http://bugs.sun.com/view_bug.do?bug_id=6772139}
-        System.setProperty("sun.java2d.d3d", "false");
-    }
 
     private static Logger log = Logger.getLogger(App.class);
 
@@ -73,7 +67,8 @@ public class App {
         configurer.setSearchSystemEnvironment(true);
 
         context.register(AppConfiguration.class);
-        context.register(StrutsJettyConfiguration.class);
+        context.register(JettyStrutsConfiguration.class);
+        // context.register(JettyJmxConfiguration.class);
         context.register(ActivitiConfiguration.class);
     }
 

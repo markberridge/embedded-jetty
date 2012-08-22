@@ -31,6 +31,12 @@ import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 @Configuration
 public class ActivitiConfiguration implements ApplicationContextAware {
 
+    static {
+        // Activiti image generation crashes the JVM. Run with JVM parameter -Dsun.java2d.d3d=false to workaround JVM
+        // bug see {@link http://bugs.sun.com/view_bug.do?bug_id=6772139}
+        System.setProperty("sun.java2d.d3d", "false");
+    }
+
     private @Value("${activiti.db:h2}")
     String db;
 
