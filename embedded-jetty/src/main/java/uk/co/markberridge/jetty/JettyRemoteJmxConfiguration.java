@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import uk.co.markberridge.FileSystemProperties;
 
 @Configuration
-public class JettyJmxConfiguration {
+public class JettyRemoteJmxConfiguration {
 
     @Value("${jetty.jmx.port:1099}")
     private Integer port;
@@ -45,4 +45,5 @@ public class JettyJmxConfiguration {
         return env;
     }
 
+    
 }

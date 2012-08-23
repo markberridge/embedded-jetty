@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.util.EnumSet;
 import java.util.EventListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.management.MBeanServer;
 import javax.servlet.DispatcherType;
@@ -25,8 +27,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jmx.export.MBeanExporter;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
+import uk.co.markberridge.jmx.ApplicationCache;
+import uk.co.markberridge.jmx.ApplicationCacheMBean;
+import uk.co.markberridge.jmx.ApplicationCacheService;
 import uk.co.markberridge.spring.ContextAwareContextLoaderListener;
 
 import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
@@ -59,13 +65,6 @@ public class JettyStrutsConfiguration {
         server.setStopAtShutdown(true);
         server.setGracefulShutdown(1000);
         return server;
-    }
-
-    @Bean(initMethod = "start", destroyMethod = "stop")
-    public MBeanContainer mbeanContainer() throws Exception {
-        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        MBeanContainer mBeanContainer = new MBeanContainer(mBeanServer);
-        return mBeanContainer;
     }
 
     @Bean
@@ -144,5 +143,41 @@ public class JettyStrutsConfiguration {
     @Bean
     public EventListener springContextListener() {
         return new ContextAwareContextLoaderListener();
+    }
+
+    // ######
+    // ### JMX & MBeans
+    // ######
+
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public MBeanContainer mbeanContainer() throws Exception {
+        MBeanContainer mBeanContainer = new MBeanContainer(mBeanServer());
+        return mBeanContainer;
+    }
+
+    @Bean
+    public MBeanServer mBeanServer() {
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        return mBeanServer;
+    }
+
+    @Bean
+    public MBeanExporter mBeanExporter() {
+        MBeanExporter mBeanExporter = new MBeanExporter();
+        mBeanExporter.setServer(mBeanServer());
+        Map<String, Object> mbeans = new HashMap<String, Object>();
+        mbeans.put("app:bean=Cache", applicationCacheMBean());
+        mBeanExporter.setBeans(mbeans);
+        return mBeanExporter;
+    }
+
+    @Bean
+    public ApplicationCacheMBean applicationCacheMBean() {
+        return new ApplicationCache(10, "a", "b", "c", "d");
+    }
+
+    @Bean
+    public ApplicationCacheService applicationCacheService() {
+        return (ApplicationCacheService) applicationCacheMBean();
     }
 }

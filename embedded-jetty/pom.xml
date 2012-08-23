@@ -13,6 +13,7 @@
         <struts.version>2.3.4</struts.version>
         <slf4j.version>1.6.6</slf4j.version>
         <activiti.version>5.8</activiti.version>
+        <camel.version>2.9.2</camel.version>
     </properties>
 
     <dependencies>
@@ -164,6 +165,26 @@
             <scope>runtime</scope>
         </dependency>
         <!-- Activiti End -->
+
+        <!-- Camel Start -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-javaconfig</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <!-- Camel End -->
+
+        <!-- Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>13.0</version>
+        </dependency>
 
     </dependencies>
 

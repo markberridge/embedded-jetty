@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import uk.co.markberridge.activiti.ActivitiConfiguration;
 import uk.co.markberridge.activiti.ProcessInitiator;
+import uk.co.markberridge.jetty.JettyRemoteJmxConfiguration;
 import uk.co.markberridge.jetty.JettyStrutsConfiguration;
 import uk.co.markberridge.service.ActivitiService;
 import uk.co.markberridge.service.MyService;
@@ -68,7 +69,7 @@ public class App {
 
         context.register(AppConfiguration.class);
         context.register(JettyStrutsConfiguration.class);
-        // context.register(JettyJmxConfiguration.class);
+        context.register(JettyRemoteJmxConfiguration.class);
         context.register(ActivitiConfiguration.class);
     }
 

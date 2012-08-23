@@ -53,6 +53,10 @@
             </result>
         </action>
 
+        <action name="cache" class="uk.co.markberridge.struts.CacheAction">
+            <result>/jsp/Cache.jsp</result>
+        </action>
+
     </package>
 
 </struts>
