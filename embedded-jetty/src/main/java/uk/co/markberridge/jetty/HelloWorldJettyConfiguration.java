@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HelloWorldJettyConfiguration {
 
-    @Value("${jetty.port:8080}")
+    @Value("${jetty.hello.port:8888}")
     private Integer port;
 
-    @Value("${jetty.host:127.0.0.1}")
+    @Value("${jetty.hello.host:127.0.0.1}")
     private String host;
 
-    @Value("${jetty.context:/hello}")
+    @Value("${jetty.hello.context:/hello}")
     private String context;
 
     @Bean(initMethod = "start", destroyMethod = "stop")
