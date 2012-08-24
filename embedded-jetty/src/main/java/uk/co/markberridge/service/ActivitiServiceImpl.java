@@ -8,8 +8,10 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class ActivitiServiceImpl implements ActivitiService {
 
     private static Logger log = Logger.getLogger(ActivitiServiceImpl.class);

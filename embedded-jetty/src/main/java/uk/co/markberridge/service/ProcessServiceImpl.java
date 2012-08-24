@@ -14,11 +14,13 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import uk.co.markberridge.model.Process;
 import uk.co.markberridge.model.Task;
 
+@Service
 public class ProcessServiceImpl implements ProcessService {
 
     // private static Logger log = Logger.getLogger(ProcessServiceImpl.class);

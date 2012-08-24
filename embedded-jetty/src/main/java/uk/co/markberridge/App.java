@@ -68,6 +68,7 @@ public class App {
         configurer.setIgnoreResourceNotFound(true);
         configurer.setSearchSystemEnvironment(true);
 
+        // context.scan("uk.co.markberridge"); // a bit too much magic!
         context.register(AppConfiguration.class);
         context.register(JettyStrutsConfiguration.class);
         context.register(JettyRemoteJmxConfiguration.class);
@@ -76,7 +77,7 @@ public class App {
     }
 
     private void start() {
-        // log.info("Service execute: " + service.getProp());
+        log.info("Service execute: " + service.getProp());
         // activitiService.hello();
         // activitiService.tweet("Integrated #Activiti with twitter. Activiti rocks!");
     }
