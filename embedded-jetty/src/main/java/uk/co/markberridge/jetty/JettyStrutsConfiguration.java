@@ -165,10 +165,15 @@ public class JettyStrutsConfiguration {
     public MBeanExporter mBeanExporter() {
         MBeanExporter mBeanExporter = new MBeanExporter();
         mBeanExporter.setServer(mBeanServer());
-        Map<String, Object> mbeans = new HashMap<String, Object>();
-        mbeans.put("app:bean=Cache", applicationCacheMBean());
-        mBeanExporter.setBeans(mbeans);
+        mBeanExporter.setBeans(mBeans());
         return mBeanExporter;
+    }
+
+    @Bean
+    public Map<String, Object> mBeans() {
+        Map<String, Object> mBeans = new HashMap<String, Object>();
+        mBeans.put("app:bean=Cache", applicationCacheMBean());
+        return mBeans;
     }
 
     @Bean
@@ -178,6 +183,7 @@ public class JettyStrutsConfiguration {
 
     @Bean
     public ApplicationCacheService applicationCacheService() {
+        // give application access to different interface of MBean purely for demonstration
         return (ApplicationCacheService) applicationCacheMBean();
     }
 }

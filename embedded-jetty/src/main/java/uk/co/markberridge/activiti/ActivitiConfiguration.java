@@ -84,10 +84,18 @@ public class ActivitiConfiguration implements ApplicationContextAware {
         activitiConfig.setDataSource(actvitiDataSource());
         activitiConfig.setTransactionManager(activitiTransactionManager());
         activitiConfig.setDatabaseSchemaUpdate("true");
-        activitiConfig.setDeploymentResources(new Resource[] { new ClassPathResource("activiti/hello.bpmn20.xml"),
-            new ClassPathResource("activiti/twitter.bpmn20.xml") });
+        activitiConfig.setDeploymentResources(processDefinitions());
         activitiConfig.setJobExecutorActivate(false);
         return activitiConfig;
+    }
+
+    @Bean
+    public Resource[] processDefinitions() {
+        return new Resource[] {
+            // process definition resources
+            new ClassPathResource("activiti/hello.bpmn20.xml"), // -
+            new ClassPathResource("activiti/twitter.bpmn20.xml") // -
+        };
     }
 
     @Bean
