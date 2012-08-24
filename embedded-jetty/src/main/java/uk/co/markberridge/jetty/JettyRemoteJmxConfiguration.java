@@ -21,7 +21,7 @@ public class JettyRemoteJmxConfiguration {
     @Value("${jetty.jmx.host:localhost}")
     private String host;
 
-    @Value("${jetty.jmx.security.enabled:true}")
+    @Value("${jetty.jmx.security.enabled:false}")
     private Boolean secured;
 
     @Bean(initMethod = "start", destroyMethod = "stop")
