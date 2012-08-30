@@ -18,6 +18,7 @@ import uk.co.markberridge.jetty.JettyRemoteJmxConfiguration;
 import uk.co.markberridge.jetty.JettyStrutsConfiguration;
 import uk.co.markberridge.service.ActivitiService;
 import uk.co.markberridge.service.MyService;
+import uk.co.markberridge.service.ServiceConfiguration;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 @Component
@@ -70,6 +71,7 @@ public class App {
 
         // context.scan("uk.co.markberridge"); // a bit too much magic!
         context.register(AppConfiguration.class);
+        context.register(ServiceConfiguration.class);
         context.register(JettyStrutsConfiguration.class);
         context.register(JettyRemoteJmxConfiguration.class);
         context.register(ActivitiConfiguration.class);
