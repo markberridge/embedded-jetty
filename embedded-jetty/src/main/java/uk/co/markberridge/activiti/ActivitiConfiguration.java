@@ -135,12 +135,7 @@ public class ActivitiConfiguration implements ApplicationContextAware {
     public FormService activitiFormService() throws Exception {
         return actvitiProcessEngine().getFormService();
     }
-
-    @Bean
-    public ProcessInitiator processInitiator() {
-        return new ActivitiProcessInitiator();
-    }
-
+    
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
