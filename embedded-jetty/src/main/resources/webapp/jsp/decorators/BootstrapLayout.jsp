@@ -20,7 +20,7 @@
     <decorator:head />
   </head>
 
-  <body>
+  <body onload="document.getElementsByTagName('input')[0].focus();" >
   
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -35,6 +35,7 @@
             <ul class="nav">
               <li><a href="findProcess.action">Processes</a></li>
               <li><a href="findTask.action">Tasks</a></li>
+              <li><a href="cache.action">Cache</a></li>
             </ul>
           </div>
         </div>
