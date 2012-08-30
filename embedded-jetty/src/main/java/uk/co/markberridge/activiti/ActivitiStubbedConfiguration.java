@@ -78,8 +78,7 @@ public class ActivitiStubbedConfiguration {
 
             @Override
             public ProcessDefinitionQuery createProcessDefinitionQuery() {
-                // Auto-generated method stub
-                return null;
+                return new StuubedProcessDefinitionQuery();
             }
 
             @Override
@@ -470,8 +469,7 @@ public class ActivitiStubbedConfiguration {
 
             @Override
             public TaskQuery createTaskQuery() {
-                // Auto-generated method stub
-                return null;
+                return new StubbedTaskQuery();
             }
 
             @Override
