@@ -1,5 +1,8 @@
 package uk.co.markberridge.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.ManagementService;
@@ -45,6 +48,8 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Transactional
     public void tweet(String tweet) {
         log.info("tweet(\"" + tweet + "\") called");
-        runtimeService.startProcessInstanceByKey("twitterProcess");
+        Map<String, Object> variables = new HashMap<String, Object>();
+        variables.put("tweet", tweet);
+        runtimeService.startProcessInstanceByKey("twitterProcess", variables);
     }
 }
