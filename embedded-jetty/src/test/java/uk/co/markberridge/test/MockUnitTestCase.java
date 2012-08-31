@@ -1,37 +1,39 @@
 package uk.co.markberridge.test;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
-abstract public class MockUnitTestCase implements ApplicationContextAware {
-
-    private ApplicationContext applicationContext;
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
-    // @Before
-    // public void setUp() throws Exception {
-    // setUpMocks();
-    // }
-    //
-    // /**
-    // * Initialise all required mocks.
-    // */
-    // protected abstract void setUpMocks();
+abstract public class MockUnitTestCase {
 
     /**
      * Get mocks required for this test.
      */
-    protected abstract Object[] getMocks();
+    protected Object[] getMocks() {
+        List<Object> mocks = new ArrayList<Object>();
+        for (Field field : getClass().getDeclaredFields()) {
+            if (field.isAnnotationPresent(Mock.class)) {
+                try {
+                    if (field.isAccessible()) {
+                        mocks.add(field.get(this));
+                    } else {
+                        field.setAccessible(true);
+                        mocks.add(field.get(this));
+                        field.setAccessible(false);
+                    }
+                } catch (IllegalArgumentException e) {
+                    throw new RuntimeException(e);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return mocks.toArray();
+    }
 
     /**
      * Move all mocks into replay mode.
@@ -63,7 +65,7 @@ abstract public class MockUnitTestCase implements ApplicationContextAware {
      * @param toMock
      * @return mock for required class
      */
-    protected static <T> T createMock(Class<T> toMock) {
+    public static <T> T createMock(Class<T> toMock) {
         return EasyMock.createStrictMock(toMock.getSimpleName(), toMock);
     }
 }
