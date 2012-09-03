@@ -1,6 +1,6 @@
 package uk.co.markberridge.service;
 
-import static uk.co.markberridge.test.MockUnitTestCase.createMock;
+import static uk.co.markberridge.test.EasyMockTestCase.createMock;
 
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;

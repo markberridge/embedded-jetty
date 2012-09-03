@@ -8,7 +8,7 @@ import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 
-abstract public class MockUnitTestCase {
+public abstract class EasyMockTestCase {
 
     /**
      * Get mocks required for this test.

@@ -13,14 +13,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import uk.co.markberridge.test.EasyMockTestCase;
 import uk.co.markberridge.test.Mock;
-import uk.co.markberridge.test.MockUnitTestCase;
 
 import com.google.common.collect.Maps;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class ActivitiServiceImplTest extends MockUnitTestCase {
+public class ActivitiServiceImplTest extends EasyMockTestCase {
 
     @Configuration
     static class ContextConfiguration extends MockServiceConfiguration {
