@@ -1,21 +1,18 @@
-package uk.co.markberridge.jmx;
+package uk.co.markberridge.service;
 
 import com.google.common.cache.CacheStats;
 
-/**
- * @author mberridge
- */
-public interface ApplicationCacheManagementInterface {
+public interface ApplicationCacheService {
+
+    public void put(String s);
+
+    public String dumpCache();
 
     public long getMaxCacheSize();
 
     public long getCurrentCachedSize();
 
-    public String dumpCache();
-
     public void clearCache();
 
     public CacheStats getStats();
-
-    public void dontExposeMe();
 }

@@ -2,7 +2,7 @@ package uk.co.markberridge.struts;
 
 import org.springframework.util.StringUtils;
 
-import uk.co.markberridge.jmx.ApplicationCacheService;
+import uk.co.markberridge.service.ApplicationCacheService;
 
 import com.opensymphony.xwork2.ActionSupport;
 

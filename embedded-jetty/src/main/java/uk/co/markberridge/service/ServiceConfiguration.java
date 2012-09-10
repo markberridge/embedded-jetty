@@ -29,4 +29,9 @@ public class ServiceConfiguration {
     public ProcessService processService() {
         return new ProcessServiceImpl();
     }
+
+    @Bean
+    public ApplicationCacheService applicationCacheService() {
+        return new ApplicationCacheServiceImpl(10, "111", "222", "333", "444", "555");
+    }
 }
