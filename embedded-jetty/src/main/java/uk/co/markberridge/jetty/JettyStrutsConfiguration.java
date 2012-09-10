@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.util.EnumSet;
 import java.util.EventListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.management.MBeanServer;
 import javax.servlet.DispatcherType;
@@ -28,11 +26,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jmx.export.MBeanExporter;
+import org.springframework.jmx.export.annotation.AnnotationMBeanExporter;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
-import uk.co.markberridge.jmx.ApplicationCache;
-import uk.co.markberridge.jmx.ApplicationCacheMBean;
-import uk.co.markberridge.jmx.ApplicationCacheService;
 import uk.co.markberridge.spring.ContextAwareContextLoaderListener;
 
 import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
@@ -146,7 +142,7 @@ public class JettyStrutsConfiguration {
     }
 
     // ######
-    // ### JMX & MBeans
+    // ### JMX
     // ######
 
     @Bean(initMethod = "start", destroyMethod = "stop")
@@ -163,27 +159,8 @@ public class JettyStrutsConfiguration {
 
     @Bean
     public MBeanExporter mBeanExporter() {
-        MBeanExporter mBeanExporter = new MBeanExporter();
+        AnnotationMBeanExporter mBeanExporter = new AnnotationMBeanExporter();
         mBeanExporter.setServer(mBeanServer());
-        mBeanExporter.setBeans(mBeans());
         return mBeanExporter;
-    }
-
-    @Bean
-    public Map<String, Object> mBeans() {
-        Map<String, Object> mBeans = new HashMap<String, Object>();
-        mBeans.put("app:bean=Cache", applicationCacheMBean());
-        return mBeans;
-    }
-
-    @Bean
-    public ApplicationCacheMBean applicationCacheMBean() {
-        return new ApplicationCache(10, "a", "b", "c", "d");
-    }
-
-    @Bean
-    public ApplicationCacheService applicationCacheService() {
-        // give application access to different interface of MBean purely for demonstration
-        return (ApplicationCacheService) applicationCacheMBean();
     }
 }

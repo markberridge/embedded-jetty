@@ -15,6 +15,7 @@ import uk.co.markberridge.activiti.ActivitiStubbedConfiguration;
 import uk.co.markberridge.camel.CamelConfiguration;
 import uk.co.markberridge.jetty.JettyRemoteJmxConfiguration;
 import uk.co.markberridge.jetty.JettyStrutsConfiguration;
+import uk.co.markberridge.jmx.MBeanConfiguration;
 import uk.co.markberridge.service.ActivitiService;
 import uk.co.markberridge.service.MyService;
 import uk.co.markberridge.service.ServiceConfiguration;
@@ -69,6 +70,7 @@ public class App {
         context.register(AppConfiguration.class);
         context.register(ServiceConfiguration.class);
         context.register(JettyStrutsConfiguration.class);
+        context.register(MBeanConfiguration.class);
         context.register(JettyRemoteJmxConfiguration.class);
         context.register(ActivitiStubbedConfiguration.class);
         context.register(CamelConfiguration.class);

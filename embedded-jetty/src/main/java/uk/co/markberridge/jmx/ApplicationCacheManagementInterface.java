@@ -2,7 +2,10 @@ package uk.co.markberridge.jmx;
 
 import com.google.common.cache.CacheStats;
 
-public interface ApplicationCacheMBean {
+/**
+ * @author mberridge
+ */
+public interface ApplicationCacheManagementInterface {
 
     public long getMaxCacheSize();
 
@@ -13,4 +16,6 @@ public interface ApplicationCacheMBean {
     public void clearCache();
 
     public CacheStats getStats();
+
+    public void dontExposeMe();
 }
